@@ -7,13 +7,38 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <ImageButton
+        android:id="@+id/btn_receitas"
+        android:layout_width="204dp"
+        android:layout_height="204dp"
+        android:layout_marginTop="64dp"
+        android:contentDescription="@string/btnReceitas"
+        android:foreground="@drawable/livro_de_receitas"
+        android:onClick="abrirReceitas"
+        app:layout_constraintEnd_toEndOf="@+id/textView"
+        app:layout_constraintStart_toStartOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <ImageButton
+        android:id="@+id/btn_compras"
+        android:layout_width="204dp"
+        android:layout_height="204dp"
+        android:layout_marginTop="64dp"
+        android:contentDescription="@string/btnCompras"
+        android:foreground="@drawable/lista_de_compras"
+        android:onClick="abrirCompras"
+        app:layout_constraintEnd_toEndOf="@+id/btn_receitas"
+        app:layout_constraintStart_toStartOf="@+id/btn_receitas"
+        app:layout_constraintTop_toBottomOf="@+id/btn_receitas" />
+
     <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="64dp"
+        android:text="@string/titulo"
+        android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

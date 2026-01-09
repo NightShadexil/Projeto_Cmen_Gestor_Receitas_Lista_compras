@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout_nova_receita"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btnGuardarReceita"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView android:text="@string/label_nome_receita" android:textStyle="bold" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+            <EditText android:id="@+id/etNome" android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="text" android:hint="@string/hint_nome" android:importantForAutofill="no"/>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+                <EditText android:id="@+id/etTempo" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:hint="@string/hint_minutos" android:importantForAutofill="no" android:inputType="number"/>
+                <EditText android:id="@+id/etPorcoes" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:hint="@string/hint_porcoes" android:importantForAutofill="no" android:inputType="number"/>
+            </LinearLayout>
+
+            <TextView android:text="@string/label_dificuldade" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp"/>
+            <Spinner android:id="@+id/spDificuldade" android:layout_width="match_parent" android:layout_height="48dp" />
+
+            <TextView android:text="@string/label_categoria" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp"/>
+            <Spinner android:id="@+id/spCategoria" android:layout_width="match_parent" android:layout_height="48dp" />
+
+            <TextView android:text="@string/label_preparacao" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp"/>
+            <EditText android:id="@+id/etPreparacao" android:layout_width="match_parent" android:layout_height="wrap_content" android:lines="3" android:gravity="top" android:importantForAutofill="no" android:inputType="textMultiLine"/>
+
+            <View android:layout_width="match_parent" android:layout_height="2dp" android:background="#EEEEEE" android:layout_marginVertical="16dp"/>
+
+            <TextView android:text="@string/label_ingredientes" android:textStyle="bold" android:textSize="18sp" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
+                <AutoCompleteTextView
+                    android:id="@+id/autoCompleteIngrediente"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:hint="@string/hint_ingrediente_nome"
+                    android:completionThreshold="1" />
+
+                <EditText android:id="@+id/etQtdIngrediente" android:layout_width="60dp" android:layout_height="wrap_content" android:hint="@string/hint_qtd" android:importantForAutofill="no" android:inputType="numberDecimal"/>
+
+                <Spinner android:id="@+id/spMedidaIngrediente" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+
+                <Button android:id="@+id/btnAdicionarIngrediente" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/btn_adicionar" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvListaTemp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="8dp"
+                android:text="@string/msg_nenhum_ingrediente"
+                android:hint="Toque para editar ou remover" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btnGuardarReceita"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="@string/btn_guardar"
+        android:backgroundTint="#E67E22"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
