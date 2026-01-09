@@ -1,3 +1,49 @@
 <resources>
     <string name="app_name">Projeto_Cmen_Gestor_Receitas_Lista_compras</string>
+    <string name="titulo">Culinária Inteligente</string>
+    <string name="btnReceitas">Gestor de Receitas</string>
+    <string name="btnCompras">Lista de Compras</string>
+    <string name="label_nome_receita">Nome da Receita</string>
+    <string name="hint_nome">Nome</string>
+    <string name="hint_minutos">Minutos</string>
+    <string name="hint_porcoes">Porções</string>
+    <string name="label_dificuldade">Dificuldade</string>
+    <string name="label_categoria">Categoria</string>
+    <string name="label_preparacao">Preparação</string>
+    <string name="label_ingredientes">Ingredientes</string>
+    <string name="hint_ingrediente_nome">Nome (ex: Arroz)</string>
+    <string name="hint_qtd">Qtd</string>
+    <string name="btn_guardar">GUARDAR RECEITA</string>
+    <string name="msg_nenhum_ingrediente">Nenhum ingrediente adicionado.</string>
+    <string name="btn_adicionar">+</string>
+    <string name="hint_tempo">🕒 45 min</string>
+    <string name="label_modo_preparacao">Modo de Preparação</string>
+    <string name="btn_adicionar_lista">ADICIONAR À LISTA DE COMPRAS</string>
+    <string name="btn_remover_receita">Remover receita</string>
+    <string name="btn_voltar">Voltar</string>
+    <string name="tv_detalhes">Detalhes da Receita</string>
+    <string name="btn_editar">EDITAR</string>
+    <string name="tv_editar_receita">Editar Receita</string>
+    <string name="btn_atualizar_receita">ATUALIZAR RECEITA</string>
+    <string name="btn_adicionar_nova_receita">ADICIONAR NOVA RECEITA</string>
+    <string name="tv_nenhuma_receita_encontrada">Nenhuma receita encontrada.</string>
+    <string name="hint_icone_descricao">icone descrição</string>
+    <string name="msg_ingredientes_remover">Toque nos ingredientes para remover</string>
+    <string name="hint_icone_voltar">icone voltar</string>
+    <string name="tv_lista_de_ingredientes_edicao">Lista de ingredientes para edição</string>
+    <string name="hint_img_nenhuma_receita">Nenhuma receita</string>
+
+    <string-array name="dificuldades">
+        <item>baixa</item>
+        <item>média</item>
+        <item>alta</item>
+    </string-array>
+
+    <string-array name="categorias">
+        <item>carne</item>
+        <item>peixe</item>
+        <item>vegetariana</item>
+        <item>sobremesas</item>
+        <item>outro</item>
+    </string-array>
 </resources>
