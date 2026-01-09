@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
+    android:layout_marginHorizontal="12dp"
+    android:layout_marginVertical="6dp"
     app:cardCornerRadius="12dp"
     app:cardElevation="4dp">
 
@@ -21,15 +22,16 @@
             android:layout_marginEnd="8dp"
             android:textSize="18sp"
             android:textStyle="bold"
+            android:textColor="#333333"
             app:layout_constraintEnd_toStartOf="@+id/btnRemover"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Nome da Receita" />
+            tools:text="Frango com Caril Exótico" />
 
         <ImageButton
             android:id="@+id/btnRemover"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/btn_remover_receita"
             android:src="@android:drawable/ic_menu_delete"
@@ -42,34 +44,37 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:background="@drawable/bg_badge_laranja"
-            android:paddingHorizontal="8dp"
-            android:paddingVertical="2dp"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="4dp"
             android:textColor="@android:color/white"
-            android:textSize="12sp"
+            android:textSize="11sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvNomeReceita"
-            tools:text="Categoria" />
+            tools:background="#E57373"
+            tools:text="CARNE" />
 
         <TextView
             android:id="@+id/tvTempo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
+            android:textSize="13sp"
+            android:textColor="#666666"
             app:layout_constraintBottom_toBottomOf="@id/tvCategoria"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tvCategoria"
-            tools:text="🕒 30 min" />
+            tools:text="🕒 40 min" />
 
         <TextView
             android:id="@+id/tvDificuldade"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="8dp"
             android:textSize="14sp"
+            android:textColor="#333333"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvCategoria"
-            tools:text="Dificuldade: Média" />
+            tools:text="Dificuldade: MÉDIA" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

@@ -5,7 +5,14 @@ import ReceitaIngrediente
 import ListaComprasItem
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.Typeface
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
+import android.text.SpannableStringBuilder
+import android.text.Spanned
+import android.text.style.ForegroundColorSpan
+import android.text.style.StyleSpan
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -13,6 +20,7 @@ import com.example.projeto_cmen_gestor_receitas_lista_compras.databinding.Activi
 import io.github.jan.supabase.postgrest.from
 import io.github.jan.supabase.postgrest.query.Columns
 import kotlinx.coroutines.launch
+import androidx.core.graphics.toColorInt
 
 class VisualizarReceita : AppCompatActivity() {
     private lateinit var binding: ActivityVisualizarReceitaBinding
@@ -25,9 +33,7 @@ class VisualizarReceita : AppCompatActivity() {
 
         receitaId = intent.getStringExtra("RECEITA_ID") ?: ""
 
-        binding.btnVoltar.setOnClickListener {
-            finish()
-        }
+        binding.btnVoltar.setOnClickListener { finish() }
 
         binding.btnEditar.setOnClickListener {
             val intent = Intent(this, EditarReceita::class.java)
@@ -35,13 +41,14 @@ class VisualizarReceita : AppCompatActivity() {
             startActivity(intent)
         }
 
-        if (receitaId.isNotEmpty()) {
-            carregarDadosReceita()
-        }
-
         binding.btnGerarLista.setOnClickListener {
             gerarListaCompras()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (receitaId.isNotEmpty()) carregarDadosReceita()
     }
 
     @SuppressLint("SetTextI18n")
@@ -59,8 +66,12 @@ class VisualizarReceita : AppCompatActivity() {
 
                 binding.tvTituloDetalhe.text = receita.nome
                 binding.tvTempoDetalhe.text = "🕒 ${receita.tempo} min"
-                binding.tvCategoriaDetalhe.text = receita.categoria
+                binding.tvCategoriaDetalhe.text = receita.categoria.uppercase()
                 binding.tvPreparacaoDetalhe.text = receita.preparacao
+
+                configurarTextoDificuldade(receita.dificuldade)
+
+                aplicarCorBadge(receita.categoria)
 
                 val textoIngredientes = listaItens.joinToString("\n") { item ->
                     "• ${item.quantidade} ${item.medida} de ${item.ingredientes?.nome ?: "Desconhecido"}"
@@ -69,9 +80,50 @@ class VisualizarReceita : AppCompatActivity() {
 
             } catch (e: Exception) {
                 e.printStackTrace()
-                Toast.makeText(this@VisualizarReceita, "Erro ao carregar detalhes", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@VisualizarReceita, "Erro ao carregar", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun configurarTextoDificuldade(dificuldade: String?) {
+        val label = "Dificuldade: "
+        val valor = dificuldade?.uppercase() ?: "---"
+        val textoCompleto = label + valor
+
+        val spannable = SpannableStringBuilder(textoCompleto)
+
+        val cor = when (dificuldade?.lowercase()) {
+            "baixa" -> "#2ECC71".toColorInt()
+            "média" -> "#F1C40F".toColorInt()
+            "alta"  -> "#E74C3C".toColorInt()
+            else    -> Color.BLACK
+        }
+
+        val inicioValor = label.length
+        val fimValor = textoCompleto.length
+
+        spannable.setSpan(ForegroundColorSpan(cor), inicioValor, fimValor, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+        spannable.setSpan(StyleSpan(Typeface.BOLD), inicioValor, fimValor, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+        binding.tvDificuldadeDetalhe.text = spannable
+    }
+
+    private fun aplicarCorBadge(categoria: String?) {
+        val cor = when (categoria?.lowercase()) {
+            "carne" -> "#E57373".toColorInt()
+            "peixe" -> "#64B5F6".toColorInt()
+            "vegetariana" -> "#81C784".toColorInt()
+            "sobremesas" -> "#F06292".toColorInt()
+            else -> "#FFB74D".toColorInt()
+        }
+        val shape = GradientDrawable().apply {
+            shape = GradientDrawable.RECTANGLE
+            cornerRadius = 24f
+            setColor(cor)
+        }
+        binding.tvCategoriaDetalhe.background = shape
+        binding.tvCategoriaDetalhe.setTextColor(Color.WHITE)
     }
 
     private fun gerarListaCompras() {
@@ -89,11 +141,8 @@ class VisualizarReceita : AppCompatActivity() {
                     )
                     SupabaseManager.client.from("lista_compras_itens").insert(novoItem)
                 }
-
-                Toast.makeText(this@VisualizarReceita, "Ingredientes adicionados à lista!", Toast.LENGTH_SHORT).show()
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
+                Toast.makeText(this@VisualizarReceita, "Adicionado à lista!", Toast.LENGTH_SHORT).show()
+            } catch (e: Exception) { e.printStackTrace() }
         }
     }
 }

@@ -19,6 +19,8 @@
             android:id="@+id/btnVoltar"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/btn_voltar"
             android:src="@android:drawable/ic_menu_revert"
@@ -38,6 +40,7 @@
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:minHeight="48dp"
             android:text="@string/btn_editar"
             android:textColor="#E67E22" />
     </LinearLayout>
@@ -64,12 +67,13 @@
                 android:textSize="24sp"
                 android:textStyle="bold"
                 android:textColor="#333333"
-                tools:text="Bacalhau à Brás" />
+                tools:text="Frango com Caril Exótico" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="12dp"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <TextView
@@ -77,20 +81,29 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="14sp"
-                    tools:text="🕒 45 min" />
+                    tools:text="🕒 40 min" />
 
                 <TextView
                     android:id="@+id/tvCategoriaDetalhe"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:background="@drawable/bg_badge_laranja"
-                    android:paddingHorizontal="8dp"
-                    android:paddingVertical="2dp"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="4dp"
                     android:textColor="@android:color/white"
-                    android:textSize="12sp"
-                    tools:text="Peixe" />
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    tools:text="CARNE" />
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvDificuldadeDetalhe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textSize="14sp"
+                android:textColor="#333333"
+                tools:text="Dificuldade: MÉDIA" />
 
             <View
                 android:layout_width="match_parent"
@@ -110,9 +123,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:lineSpacingExtra="4dp"
+                android:lineSpacingExtra="6dp"
                 android:textSize="16sp"
-                tools:text="• 500g de Bacalhau" />
+                android:textColor="#555555"
+                tools:text="• 600g de peito de frango\n• 400ml de leite de coco" />
 
             <View
                 android:layout_width="match_parent"
@@ -134,21 +148,20 @@
                 android:layout_marginTop="8dp"
                 android:lineSpacingExtra="4dp"
                 android:textSize="16sp"
-                tools:text="Modo de preparo aqui..." />
+                android:textColor="#555555"
+                tools:text="1. Refogue a cebola e o alho...\n2. Adicione o frango..." />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
     <Button
         android:id="@+id/btnGerarLista"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="60dp"
         android:backgroundTint="#27AE60"
         android:text="@string/btn_adicionar_lista"
         android:textColor="@android:color/white"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
