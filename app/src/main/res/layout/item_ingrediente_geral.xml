@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp"
+    android:background="?attr/selectableItemBackground">
+
+    <TextView
+        android:id="@+id/tvNomeIngrediente"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Nome do Ingrediente"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnEditar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btnEditar"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@android:drawable/ic_menu_edit"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Editar"
+        android:padding="12dp"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnApagar"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btnApagar"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@android:drawable/ic_menu_delete"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Apagar"
+        android:padding="12dp"
+        android:scaleType="centerInside"
+        app:tint="#D32F2F"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
