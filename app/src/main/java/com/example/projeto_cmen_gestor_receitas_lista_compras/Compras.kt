@@ -20,8 +20,9 @@ import io.github.jan.supabase.postgrest.query.Columns
 import io.github.jan.supabase.postgrest.query.Order
 
 // --- IMPORTS DO PROJETO ---
-import Ingrediente
-import ListaComprasItem
+import com.example.projeto_cmen_gestor_receitas_lista_compras.model.Ingrediente
+import com.example.projeto_cmen_gestor_receitas_lista_compras.model.ListaComprasItem
+
 import com.example.projeto_cmen_gestor_receitas_lista_compras.databinding.ActivityComprasBinding
 import com.example.projeto_cmen_gestor_receitas_lista_compras.ui.ComprasAdapter
 
@@ -35,21 +36,28 @@ class Compras : AppCompatActivity() {
         binding = ActivityComprasBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Configura a lista visual (RecyclerView) e carrega os dados
+        // 1. Configurar a Lista (RecyclerView)
         setupRecyclerView()
+
+        // 2. Carregar dados iniciais
         carregarListaCompras()
 
-        // Configura o botão flutuante (+)
+        // 3. Configurar Botão Adicionar (+)
         binding.fabAdicionarItem.setOnClickListener {
             mostrarDialogoAdicionar()
+        }
+
+        // 4. Configurar Botão Limpar Tudo (Lixo) [NOVO]
+        binding.btnLimparLista.setOnClickListener {
+            confirmarLimparTudo()
         }
     }
 
     // --- CONFIGURAÇÃO DA LISTA ---
     private fun setupRecyclerView() {
         adapter = ComprasAdapter(emptyList()) { item ->
-            // Define o que acontece ao clicar no botão de apagar (lixo)
-            confirmarRemocao(item)
+            // Define o que acontece ao clicar no botão de apagar individual (X)
+            confirmarRemocaoItem(item)
         }
         binding.rvCompras.layoutManager = LinearLayoutManager(this)
         binding.rvCompras.adapter = adapter
@@ -69,8 +77,14 @@ class Compras : AppCompatActivity() {
 
                 adapter.atualizarLista(lista)
 
-                // Mostra ou esconde a mensagem "Lista Vazia"
-                binding.tvVazio.visibility = if (lista.isEmpty()) View.VISIBLE else View.GONE
+                // Controla a visibilidade da mensagem "Lista Vazia" e do botão de limpar
+                if (lista.isEmpty()) {
+                    binding.tvVazio.visibility = View.VISIBLE
+                    binding.btnLimparLista.visibility = View.GONE // Esconde o lixo se já estiver vazio
+                } else {
+                    binding.tvVazio.visibility = View.GONE
+                    binding.btnLimparLista.visibility = View.VISIBLE
+                }
 
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -82,10 +96,9 @@ class Compras : AppCompatActivity() {
     }
 
     // ========================================================================
-    // LÓGICA DE ADICIONAR (COM DOIS SPINNERS)
+    // LÓGICA DE ADICIONAR (COM SPINNERS DE INGREDIENTE E MEDIDA)
     // ========================================================================
 
-    // 1. Busca ingredientes disponíveis na BD antes de abrir a janela
     private fun mostrarDialogoAdicionar() {
         lifecycleScope.launch {
             try {
@@ -105,7 +118,6 @@ class Compras : AppCompatActivity() {
                     return@launch
                 }
 
-                // Se houver ingredientes, abre a janela de escolha
                 abrirDialogoComSpinner(listaIngredientes)
 
             } catch (e: Exception) {
@@ -116,7 +128,6 @@ class Compras : AppCompatActivity() {
         }
     }
 
-    // 2. Constrói a janela (Dialog) com: Ingrediente (Spinner), Quantidade (Input), Medida (Spinner)
     private fun abrirDialogoComSpinner(ingredientes: List<Ingrediente>) {
         val context = this
         val layout = LinearLayout(context)
@@ -130,7 +141,6 @@ class Compras : AppCompatActivity() {
         spinnerIngredientes.adapter = adapterIngredientes
         layout.addView(spinnerIngredientes)
 
-        // Espaço estético
         layout.addView(View(context).apply { layoutParams = LinearLayout.LayoutParams(1, 30) })
 
         // --- B. INPUT DE QUANTIDADE ---
@@ -139,12 +149,10 @@ class Compras : AppCompatActivity() {
         inputQtd.inputType = android.text.InputType.TYPE_CLASS_NUMBER or android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL
         layout.addView(inputQtd)
 
-        // Espaço estético
         layout.addView(View(context).apply { layoutParams = LinearLayout.LayoutParams(1, 30) })
 
-        // --- C. SPINNER DE MEDIDAS (ALTERAÇÃO NOVA) ---
+        // --- C. SPINNER DE MEDIDAS ---
         val spinnerMedidas = Spinner(context)
-        // Lista fixa de opções
         val opcoesMedidas = listOf("un", "kg", "g", "L", "ml")
         val adapterMedidas = ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item, opcoesMedidas)
         spinnerMedidas.adapter = adapterMedidas
@@ -156,7 +164,6 @@ class Compras : AppCompatActivity() {
             .setPositiveButton("Adicionar") { _, _ ->
                 val qtdStr = inputQtd.text.toString()
 
-                // Pega a posição e o valor selecionado nos Spinners
                 val posicaoIngrediente = spinnerIngredientes.selectedItemPosition
                 val medidaSelecionada = spinnerMedidas.selectedItem.toString()
 
@@ -164,7 +171,6 @@ class Compras : AppCompatActivity() {
                     val ingredienteEscolhido = ingredientes[posicaoIngrediente]
                     val qtd = qtdStr.toDoubleOrNull() ?: 1.0
 
-                    // Envia o ID, a quantidade e a medida escolhida para a BD
                     salvarItem(ingredienteEscolhido.id!!, qtd, medidaSelecionada)
                 } else {
                     Toast.makeText(context, "Preencha a quantidade", Toast.LENGTH_SHORT).show()
@@ -174,13 +180,11 @@ class Compras : AppCompatActivity() {
             .show()
     }
 
-    // 3. Guarda o item na base de dados
     private fun salvarItem(ingredienteId: String, quantidade: Double, medida: String) {
         lifecycleScope.launch {
             try {
                 binding.progressBar.visibility = View.VISIBLE
 
-                // Cria o objeto para enviar ao Supabase
                 val novoItem = ListaComprasItem(
                     ingredienteId = ingredienteId,
                     quantidade = quantidade,
@@ -190,7 +194,7 @@ class Compras : AppCompatActivity() {
                 SupabaseManager.client.from("lista_compras_itens").insert(novoItem)
 
                 Toast.makeText(this@Compras, "Adicionado!", Toast.LENGTH_SHORT).show()
-                carregarListaCompras() // Recarrega a lista para mostrar o novo item
+                carregarListaCompras()
 
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -202,30 +206,71 @@ class Compras : AppCompatActivity() {
     }
 
     // ========================================================================
-    // LÓGICA DE REMOVER
+    // LÓGICA DE REMOVER UM ITEM
     // ========================================================================
 
-    private fun confirmarRemocao(item: ListaComprasItem) {
+    private fun confirmarRemocaoItem(item: ListaComprasItem) {
         AlertDialog.Builder(this)
-            .setTitle("Remover")
+            .setTitle("Remover Item")
             .setMessage("Já comprou este item?")
             .setPositiveButton("Sim") { _, _ ->
-                item.id?.let { apagarItem(it) }
+                item.id?.let { apagarItemUnico(it) }
             }
             .setNegativeButton("Não", null)
             .show()
     }
 
-    private fun apagarItem(id: String) {
+    private fun apagarItemUnico(id: String) {
         lifecycleScope.launch {
             try {
                 binding.progressBar.visibility = View.VISIBLE
                 SupabaseManager.client.from("lista_compras_itens").delete {
                     filter { eq("id", id) }
                 }
-                carregarListaCompras() // Atualiza a lista visualmente
+                carregarListaCompras()
             } catch (e: Exception) {
                 Toast.makeText(this@Compras, "Erro ao remover", Toast.LENGTH_SHORT).show()
+            } finally {
+                binding.progressBar.visibility = View.GONE
+            }
+        }
+    }
+
+    // ========================================================================
+    // LÓGICA DE LIMPAR A LISTA TODA (NOVO)
+    // ========================================================================
+
+    private fun confirmarLimparTudo() {
+        AlertDialog.Builder(this)
+            .setTitle("Esvaziar Lista")
+            .setMessage("Tem a certeza que quer apagar TODOS os itens da lista de compras?")
+            .setIcon(android.R.drawable.ic_dialog_alert)
+            .setPositiveButton("Apagar Tudo") { _, _ ->
+                esvaziarListaNoSupabase()
+            }
+            .setNegativeButton("Cancelar", null)
+            .show()
+    }
+
+    private fun esvaziarListaNoSupabase() {
+        lifecycleScope.launch {
+            try {
+                binding.progressBar.visibility = View.VISIBLE
+
+                // DELETE sem filtro específico para apagar tudo.
+                // Usamos neq("id", "0") como truque porque o Supabase
+                // geralmente exige um filtro por segurança.
+                // Como nenhum ID é "0", isto seleciona tudo.
+                SupabaseManager.client.from("lista_compras_itens").delete {
+                    filter { neq("id", "0") }
+                }
+
+                Toast.makeText(this@Compras, "Lista esvaziada!", Toast.LENGTH_SHORT).show()
+                carregarListaCompras()
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+                Toast.makeText(this@Compras, "Erro ao limpar lista: ${e.message}", Toast.LENGTH_LONG).show()
             } finally {
                 binding.progressBar.visibility = View.GONE
             }
