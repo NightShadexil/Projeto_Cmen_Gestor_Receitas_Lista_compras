@@ -1,6 +1,5 @@
 package com.example.projeto_cmen_gestor_receitas_lista_compras
 
-import Receita
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -10,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.projeto_cmen_gestor_receitas_lista_compras.databinding.ActivityReceitasBinding
+import com.example.projeto_cmen_gestor_receitas_lista_compras.model.Receita
 import com.example.projeto_cmen_gestor_receitas_lista_compras.ui.ReceitaAdapter
 import io.github.jan.supabase.postgrest.from
 import kotlinx.coroutines.launch

@@ -4,34 +4,50 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layout_receitas_root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="?attr/colorSurface">
 
     <LinearLayout
         android:id="@+id/layoutFiltros"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="8dp"
-        android:background="#F9F9F9"
+        android:padding="12dp"
+        android:elevation="4dp"
+        android:background="?attr/colorSurfaceVariant"
         app:layout_constraintTop_toTopOf="parent">
 
         <Spinner
             android:id="@+id/spFiltroCategoria"
             android:layout_width="0dp"
             android:layout_height="48dp"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:layout_marginEnd="4dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:spinnerMode="dropdown" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center_vertical"
+            android:background="?attr/colorOutlineVariant" />
 
         <Spinner
             android:id="@+id/spFiltroDificuldade"
             android:layout_width="0dp"
             android:layout_height="48dp"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:layout_marginStart="4dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:spinnerMode="dropdown" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvReceitas"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="4dp"
         android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@id/layoutFiltros"
         app:layout_constraintBottom_toTopOf="@id/btnIrParaNovaReceita"
@@ -65,11 +81,12 @@
             android:layout_height="100dp"
             android:src="@android:drawable/ic_menu_search"
             android:contentDescription="@string/desc_procurar"
-            app:tint="#CCCCCC" />
+            app:tint="?attr/colorOnSurfaceVariant" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="?attr/colorOnSurface"
             android:text="@string/tv_nenhuma_receita_encontrada" />
 
         <Button
@@ -78,7 +95,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/btn_recarregar"
-            android:textColor="#E67E22" />
+            android:textColor="?attr/colorPrimary" />
     </LinearLayout>
 
     <Button
@@ -87,7 +104,7 @@
         android:layout_height="60dp"
         android:layout_margin="16dp"
         android:text="@string/btn_adicionar_nova_receita"
-        android:backgroundTint="#E67E22"
+        android:backgroundTint="?attr/colorPrimary"
         android:textColor="@android:color/white"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"

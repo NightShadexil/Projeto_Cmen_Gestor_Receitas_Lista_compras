@@ -1,6 +1,5 @@
 package com.example.projeto_cmen_gestor_receitas_lista_compras.ui
 
-import Receita
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
@@ -16,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.projeto_cmen_gestor_receitas_lista_compras.VisualizarReceita
 import com.example.projeto_cmen_gestor_receitas_lista_compras.databinding.ItemReceitaBinding
 import androidx.core.graphics.toColorInt
+import com.example.projeto_cmen_gestor_receitas_lista_compras.model.Receita
 
 @Suppress("DEPRECATION")
 class ReceitaAdapter(
