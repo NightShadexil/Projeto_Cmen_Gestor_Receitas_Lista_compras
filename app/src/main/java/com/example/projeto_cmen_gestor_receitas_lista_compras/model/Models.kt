@@ -31,8 +31,9 @@ data class ReceitaIngrediente(
 @Serializable
 data class ListaComprasItem(
     val id: String? = null,
-    @SerialName("lista_id") val listaId: String? = null,
+    @SerialName("lista_id") val listaId: String? = null, // Pode ser null se for lista única
     @SerialName("ingrediente_id") val ingredienteId: String,
     val quantidade: Double,
-    val medida: String
+    val medida: String,
+    val ingredientes: Ingrediente? = null // Permite mostrar o nome (ex: "Arroz") na lista
 )
