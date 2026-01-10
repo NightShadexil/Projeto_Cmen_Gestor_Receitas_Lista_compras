@@ -1,10 +1,10 @@
 package com.example.projeto_cmen_gestor_receitas_lista_compras.ui
 
-import ListaComprasItem
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projeto_cmen_gestor_receitas_lista_compras.databinding.ItemCompraBinding
+import com.example.projeto_cmen_gestor_receitas_lista_compras.model.ListaComprasItem
 
 
 class ComprasAdapter(

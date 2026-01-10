@@ -20,9 +20,9 @@ import io.github.jan.supabase.postgrest.query.Columns
 import io.github.jan.supabase.postgrest.query.Order
 
 // --- IMPORTS DO PROJETO ---
-import Ingrediente
-import ListaComprasItem
 import com.example.projeto_cmen_gestor_receitas_lista_compras.databinding.ActivityComprasBinding
+import com.example.projeto_cmen_gestor_receitas_lista_compras.model.Ingrediente
+import com.example.projeto_cmen_gestor_receitas_lista_compras.model.ListaComprasItem
 import com.example.projeto_cmen_gestor_receitas_lista_compras.ui.ComprasAdapter
 
 class Compras : AppCompatActivity() {
