@@ -5,13 +5,15 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="?attr/colorSurface"
     tools:context=".MainActivity">
 
     <ImageButton
         android:id="@+id/btn_receitas"
         android:layout_width="204dp"
         android:layout_height="204dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="80dp"
         android:contentDescription="@string/btnReceitas"
         android:foreground="@drawable/livro_de_receitas"
         android:onClick="abrirReceitas"
@@ -23,7 +25,7 @@
         android:id="@+id/btn_compras"
         android:layout_width="204dp"
         android:layout_height="204dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="80dp"
         android:contentDescription="@string/btnCompras"
         android:foreground="@drawable/lista_de_compras"
         android:onClick="abrirCompras"

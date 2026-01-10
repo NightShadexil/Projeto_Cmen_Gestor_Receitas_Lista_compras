@@ -2,9 +2,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/layout_editar_receita"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_editar_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="?attr/colorSurface"
     android:padding="16dp">
 
     <LinearLayout
@@ -19,8 +22,6 @@
             android:id="@+id/btnVoltar"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:minHeight="48dp"
-            android:minWidth="48dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/btn_voltar"
             android:src="@android:drawable/ic_menu_revert"
@@ -36,6 +37,7 @@
     </LinearLayout>
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollViewEditar"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
@@ -50,17 +52,44 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView android:text="@string/label_nome_receita" android:textStyle="bold" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+            <ImageView
+                android:id="@+id/ivEditarPreview"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                android:layout_marginBottom="8dp"
+                android:background="#EEEEEE"
+                android:contentDescription="@string/hint_pre_vizualizacao_da_receita"
+                tools:src="@android:drawable/ic_menu_gallery" />
+
+            <Button
+                android:id="@+id/btnAlterarImagem"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_alterar_foto_da_receita"
+                android:layout_marginBottom="16dp"/>
+
+            <TextView
+                android:text="@string/label_nome_receita"
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
             <EditText
                 android:id="@+id/etNome"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="48dp"
                 android:hint="@string/hint_nome"
-                android:importantForAutofill="no"
-                android:inputType="textCapSentences"/>
+                android:inputType="textCapSentences"
+                android:importantForAutofill="no"/>
 
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
                 <EditText
                     android:id="@+id/etTempo"
                     android:layout_width="0dp"
@@ -70,6 +99,7 @@
                     android:hint="@string/hint_minutos"
                     android:inputType="number"
                     android:importantForAutofill="no"/>
+
                 <EditText
                     android:id="@+id/etPorcoes"
                     android:layout_width="0dp"
@@ -81,21 +111,36 @@
                     android:importantForAutofill="no"/>
             </LinearLayout>
 
-            <TextView android:text="@string/label_dificuldade" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp"/>
+            <TextView
+                android:text="@string/label_dificuldade"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"/>
+
             <Spinner
                 android:id="@+id/spDificuldade"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="48dp" />
 
-            <TextView android:text="@string/label_categoria" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp"/>
+            <TextView
+                android:text="@string/label_categoria"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"/>
+
             <Spinner
                 android:id="@+id/spCategoria"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="48dp" />
 
-            <TextView android:text="@string/label_preparacao" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp"/>
+            <TextView
+                android:text="@string/label_preparacao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"/>
+
             <EditText
                 android:id="@+id/etPreparacao"
                 android:layout_width="match_parent"
@@ -103,37 +148,61 @@
                 android:minHeight="48dp"
                 android:lines="4"
                 android:gravity="top"
-                android:hint="@string/label_preparacao"
                 android:inputType="textMultiLine"
                 android:importantForAutofill="no"/>
 
-            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#EEEEEE" android:layout_marginVertical="16dp"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#EEEEEE"
+                android:layout_marginVertical="16dp"/>
 
-            <TextView android:text="@string/label_ingredientes" android:textStyle="bold" android:textSize="18sp" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+            <TextView
+                android:text="@string/label_ingredientes"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
-                <AutoCompleteTextView
-                    android:id="@+id/autoCompleteIngrediente"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:minHeight="48dp"
-                    android:hint="@string/hint_ingrediente_nome"
-                    android:inputType="text"
-                    android:importantForAutofill="no"/>
+            <Spinner
+                android:id="@+id/spIngredientesBD"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:layout_marginTop="8dp"/>
+
+            <EditText
+                android:id="@+id/etNovoIngredienteNome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="48dp"
+                android:hint="@string/hint_nome_do_novo_ingrediente"
+                android:visibility="gone"
+                android:importantForAutofill="no"
+                android:inputType="textCapSentences"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="8dp">
+
                 <EditText
                     android:id="@+id/etQtdIngrediente"
-                    android:layout_width="60dp"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:minHeight="48dp"
                     android:hint="@string/hint_qtd"
                     android:inputType="numberDecimal"
                     android:importantForAutofill="no"/>
+
                 <Spinner
                     android:id="@+id/spMedidaIngrediente"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:minHeight="48dp" />
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="48dp" />
+
                 <Button
                     android:id="@+id/btnAdicionarIngrediente"
                     android:layout_width="wrap_content"
@@ -153,10 +222,19 @@
                 android:background="?attr/selectableItemBackground"
                 android:clickable="true"
                 android:focusable="true"
-                android:text="@string/msg_nenhum_ingrediente"
-                android:contentDescription="@string/tv_lista_de_ingredientes_edicao"/>
+                android:text="@string/msg_nenhum_ingrediente" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+
+    <ProgressBar
+        android:id="@+id/pbEditar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/btnGuardarReceita"

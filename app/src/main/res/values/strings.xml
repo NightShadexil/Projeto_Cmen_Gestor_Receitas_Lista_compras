@@ -13,6 +13,7 @@
     <string name="label_ingredientes">Ingredientes</string>
     <string name="hint_ingrediente_nome">Nome (ex: Arroz)</string>
     <string name="hint_qtd">Qtd</string>
+    <string name="hint_adicionar">Adicionar</string>
     <string name="btn_guardar">GUARDAR RECEITA</string>
     <string name="msg_nenhum_ingrediente">Nenhum ingrediente adicionado.</string>
     <string name="btn_adicionar">+</string>
@@ -32,6 +33,14 @@
     <string name="hint_icone_voltar">icone voltar</string>
     <string name="tv_lista_de_ingredientes_edicao">Lista de ingredientes para edição</string>
     <string name="hint_img_nenhuma_receita">Nenhuma receita</string>
+    <string name="hint_lista_temp">Toque para editar ou remover</string>
+    <string name="btn_tentar_novamente">Tentar Novamente</string>
+    <string name="hint_nome_do_novo_ingrediente">Nome do novo ingrediente</string>
+    <string name="desc_procurar">procurar</string>
+    <string name="btn_recarregar">Recarregar</string>
+    <string name="hint_pre_vizualizacao_da_receita">pré-vizualização da receita</string>
+    <string name="btn_selecionar_foto">Selecionar Foto</string>
+    <string name="btn_alterar_foto_da_receita">Alterar Foto da Receita</string>
 
     <string-array name="dificuldades">
         <item>baixa</item>

@@ -5,6 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="?attr/colorSurface"
     android:padding="16dp">
 
     <LinearLayout
@@ -22,7 +24,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/btn_voltar"
             android:src="@android:drawable/ic_menu_revert"
-            app:tint="#333333" />
+            app:tint="?attr/colorOnSurface" />
 
         <TextView
             android:layout_width="0dp"
@@ -30,6 +32,7 @@
             android:layout_weight="1"
             android:layout_marginStart="8dp"
             android:text="@string/tv_detalhes"
+            android:textColor="?attr/colorOnSurface"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -39,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/btn_editar"
-            android:textColor="#E67E22" />
+            android:textColor="?attr/colorPrimary" />
     </LinearLayout>
 
     <androidx.core.widget.NestedScrollView
@@ -57,51 +60,73 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <ImageView
+                android:id="@+id/ivReceitaHeader"
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:scaleType="centerCrop"
+                android:layout_marginBottom="16dp"
+                android:background="?attr/colorSurfaceVariant"
+                android:contentDescription="@string/hint_pre_vizualizacao_da_receita"
+                tools:src="@android:drawable/ic_menu_gallery" />
+
             <TextView
                 android:id="@+id/tvTituloDetalhe"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                android:textColor="#333333"
-                tools:text="Bacalhau à Brás" />
+                android:textColor="?attr/colorOnSurface"
+                tools:text="Nome da Receita" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="12dp"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/tvTempoDetalhe"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="?attr/colorOnSurface"
                     android:textSize="14sp"
-                    tools:text="🕒 45 min" />
+                    tools:text="🕒 40 min" />
 
                 <TextView
                     android:id="@+id/tvCategoriaDetalhe"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:background="@drawable/bg_badge_laranja"
-                    android:paddingHorizontal="8dp"
-                    android:paddingVertical="2dp"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="4dp"
                     android:textColor="@android:color/white"
-                    android:textSize="12sp"
-                    tools:text="Peixe" />
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    tools:text="CATEGORIA" />
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvDificuldadeDetalhe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textSize="14sp"
+                android:textColor="?attr/colorOnSurface"
+                tools:text="Dificuldade: MÉDIA" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginVertical="16dp"
-                android:background="#EEEEEE" />
+                android:background="?attr/colorOutlineVariant" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/label_ingredientes"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -110,20 +135,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:lineSpacingExtra="4dp"
+                android:lineSpacingExtra="6dp"
                 android:textSize="16sp"
-                tools:text="• 500g de Bacalhau" />
+                android:textColor="?attr/colorOnSurfaceVariant"
+                tools:text="• Ingredientes..." />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginVertical="16dp"
-                android:background="#EEEEEE" />
+                android:background="?attr/colorOutlineVariant" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/label_preparacao"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -134,21 +161,20 @@
                 android:layout_marginTop="8dp"
                 android:lineSpacingExtra="4dp"
                 android:textSize="16sp"
-                tools:text="Modo de preparo aqui..." />
+                android:textColor="?attr/colorOnSurfaceVariant"
+                tools:text="Modo de preparo..." />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
     <Button
         android:id="@+id/btnGerarLista"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:backgroundTint="#27AE60"
+        android:backgroundTint="?attr/colorPrimary"
         android:text="@string/btn_adicionar_lista"
         android:textColor="@android:color/white"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

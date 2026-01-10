@@ -1,3 +1,5 @@
+package com.example.projeto_cmen_gestor_receitas_lista_compras.model
+
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
 
@@ -9,8 +11,12 @@ data class Receita(
     @SerialName("num_porcoes") val porcoes: Int,
     val dificuldade: String,
     val categoria: String,
-    val preparacao: String
-)
+    val preparacao: String,
+    @SerialName("imagem_url") val imagemCaminho: String = "imagem_padrao.png"
+) {
+    val urlCompleta: String
+        get() = "https://irdivilrzypwtetakgdu.supabase.co/storage/v1/object/public/imagens_receita/$imagemCaminho"
+}
 
 @Serializable
 data class Ingrediente(

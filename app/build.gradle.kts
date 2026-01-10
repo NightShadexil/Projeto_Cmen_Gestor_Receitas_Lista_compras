@@ -85,6 +85,8 @@ dependencies {
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")
 
+    implementation("io.coil-kt:coil:2.5.0")
+
     implementation(platform(libs.supabase.bom))
 
     implementation("io.github.jan-tennert.supabase:gotrue-kt")

@@ -1,8 +1,10 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
     <style name="Base.Theme.Projeto_Cmen_Gestor_Receitas_Lista_compras" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">#E67E22</item>
+        <item name="android:windowBackground">#FFFFFF</item>
+        <item name="colorSurface">#FFFFFF</item>
+        <item name="colorOnSurface">#333333</item>
+        <item name="colorSurfaceVariant">#F5F5F5</item>
     </style>
 
     <style name="Theme.Projeto_Cmen_Gestor_Receitas_Lista_compras" parent="Base.Theme.Projeto_Cmen_Gestor_Receitas_Lista_compras" />
