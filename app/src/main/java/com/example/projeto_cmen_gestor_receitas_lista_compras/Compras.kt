@@ -257,12 +257,12 @@ class Compras : AppCompatActivity() {
             try {
                 binding.progressBar.visibility = View.VISIBLE
 
-                // DELETE sem filtro específico para apagar tudo.
-                // Usamos neq("id", "0") como truque porque o Supabase
-                // geralmente exige um filtro por segurança.
-                // Como nenhum ID é "0", isto seleciona tudo.
+                // CORREÇÃO AQUI:
+                // Usamos o "Zero UUID" oficial (8-4-4-4-12 zeros)
+                // O filtro diz: "Apaga tudo o que NÃO for igual a este ID de zeros".
+                // Como nenhum item real tem ID de zeros, apaga tudo.
                 SupabaseManager.client.from("lista_compras_itens").delete {
-                    filter { neq("id", "0") }
+                    filter { neq("id", "00000000-0000-0000-0000-000000000000") }
                 }
 
                 Toast.makeText(this@Compras, "Lista esvaziada!", Toast.LENGTH_SHORT).show()
