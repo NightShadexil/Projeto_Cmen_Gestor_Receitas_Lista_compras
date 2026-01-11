@@ -35,9 +35,11 @@ class ReceitaAdapter(
     override fun onBindViewHolder(holder: ReceitaViewHolder, position: Int) {
         val receita = lista[position]
         with(holder.binding) {
+            // 1. Dados Básicos e Porções
             tvNomeReceita.text = receita.nome
             tvCategoria.text = receita.categoria.uppercase()
             tvTempo.text = "🕒 ${receita.tempo} min"
+            tvPorcoes.text = "🍽️ ${receita.porcoes} porções"
 
             val label = "Dificuldade: "
             val valor = receita.dificuldade.uppercase()

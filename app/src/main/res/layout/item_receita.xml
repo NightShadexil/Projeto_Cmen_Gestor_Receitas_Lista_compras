@@ -58,12 +58,23 @@
             android:id="@+id/tvTempo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="13sp"
+            android:layout_marginTop="12dp"
             android:textColor="?attr/colorOnSurfaceVariant"
-            app:layout_constraintBottom_toBottomOf="@id/tvCategoria"
+            android:textSize="13sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tvCategoria"
             tools:text="🕒 40 min" />
+
+        <TextView
+            android:id="@+id/tvPorcoes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:textSize="13sp"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTempo"
+            tools:text="🍽️ 4 porções" />
 
         <TextView
             android:id="@+id/tvDificuldade"

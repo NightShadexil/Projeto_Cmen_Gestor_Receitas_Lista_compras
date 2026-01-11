@@ -45,6 +45,7 @@
     <string name="btn_esvaziar_lista">Esvaziar Lista</string>
     <string name="lbl_lista_vazia">A lista está vazia.</string>
     <string name="desc_adicionar_item">Adicionar Item</string>
+    <string name="desc_exportar_pdf">Exportar PDF</string>
 
     <string-array name="dificuldades">
         <item>baixa</item>

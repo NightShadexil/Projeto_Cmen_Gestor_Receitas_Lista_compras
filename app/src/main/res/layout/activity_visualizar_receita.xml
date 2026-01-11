@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -46,6 +45,7 @@
     </LinearLayout>
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollViewConteudo"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
@@ -79,42 +79,80 @@
                 android:textColor="?attr/colorOnSurface"
                 tools:text="Nome da Receita" />
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:layout_marginTop="12dp">
 
-                <TextView
-                    android:id="@+id/tvTempoDetalhe"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="?attr/colorOnSurface"
-                    android:textSize="14sp"
-                    tools:text="🕒 40 min" />
+                    android:orientation="vertical"
+                    android:layout_alignParentStart="true"
+                    android:layout_toStartOf="@+id/btnExportarPdf">
 
-                <TextView
-                    android:id="@+id/tvCategoriaDetalhe"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:paddingHorizontal="12dp"
-                    android:paddingVertical="4dp"
-                    android:textColor="@android:color/white"
-                    android:textSize="11sp"
-                    android:textStyle="bold"
-                    tools:text="CATEGORIA" />
-            </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/tvDificuldadeDetalhe"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:textSize="14sp"
-                android:textColor="?attr/colorOnSurface"
-                tools:text="Dificuldade: MÉDIA" />
+                        <TextView
+                            android:id="@+id/tvTempoDetalhe"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="?attr/colorOnSurface"
+                            android:textSize="14sp"
+                            tools:text="🕒 40 min" />
+
+                        <TextView
+                            android:id="@+id/tvPorcoesDetalhe"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:textColor="?attr/colorOnSurface"
+                            android:textSize="14sp"
+                            tools:text="🍽️ 4 porções" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tvCategoriaDetalhe"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingHorizontal="12dp"
+                            android:paddingVertical="4dp"
+                            android:textColor="@android:color/white"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            tools:text="CATEGORIA" />
+
+                        <TextView
+                            android:id="@+id/tvDificuldadeDetalhe"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:textSize="14sp"
+                            tools:text="Dificuldade: MÉDIA" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <ImageButton
+                    android:id="@+id/btnExportarPdf"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@android:drawable/ic_menu_save"
+                    app:tint="?attr/colorPrimary"
+                    android:contentDescription="@string/desc_exportar_pdf" />
+            </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"
