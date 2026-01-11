@@ -13,11 +13,13 @@ import android.text.Spanned
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.toColorInt
 import androidx.lifecycle.lifecycleScope
 import coil.load
+import com.example.projeto_cmen_gestor_receitas_lista_compras.data.GeminiReceitaAnalyzer
 import com.example.projeto_cmen_gestor_receitas_lista_compras.databinding.ActivityVisualizarReceitaBinding
 import com.example.projeto_cmen_gestor_receitas_lista_compras.model.ListaComprasItem
 import com.example.projeto_cmen_gestor_receitas_lista_compras.model.Receita
@@ -163,20 +165,87 @@ class VisualizarReceita : AppCompatActivity() {
     private fun gerarListaCompras() {
         lifecycleScope.launch {
             try {
-                val itensReceita = SupabaseManager.client.from("receita_ingredientes")
-                    .select { filter { eq("receita_id", receitaId) } }
-                    .decodeList<ReceitaIngrediente>()
+                // Ativar loader e bloquear ecrã
+                binding.viewLoadingOverlay.visibility = View.VISIBLE
+                binding.progressBarProcessamento.visibility = View.VISIBLE
 
-                itensReceita.forEach { item ->
-                    SupabaseManager.client.from("lista_compras_itens").insert(
-                        ListaComprasItem(ingredienteId = item.ingredienteId, quantidade = item.quantidade, medida = item.medida)
-                    )
+                val itensReceita = SupabaseManager.client.from("receita_ingredientes")
+                    .select {
+                        filter { eq("receita_id", receitaId) }
+                    }.decodeList<ReceitaIngrediente>()
+
+                for (item in itensReceita) {
+                    val itemExistente = SupabaseManager.client.from("lista_compras_itens")
+                        .select {
+                            filter { eq("ingrediente_id", item.ingredienteId) }
+                        }.decodeSingleOrNull<ListaComprasItem>()
+
+                    if (itemExistente != null) {
+                        val novaQtd = itemExistente.quantidade + item.quantidade
+                        SupabaseManager.client.from("lista_compras_itens").update(
+                            { set("quantidade", novaQtd) }
+                        ) {
+                            filter { eq("id", itemExistente.id!!) }
+                        }
+                    } else {
+                        val novoItem = ListaComprasItem(
+                            ingredienteId = item.ingredienteId,
+                            quantidade = item.quantidade,
+                            medida = item.medida,
+                            listaId = null
+                        )
+                        SupabaseManager.client.from("lista_compras_itens").insert(novoItem)
+                    }
                 }
-                Toast.makeText(this@VisualizarReceita, "Ingredientes adicionados!", Toast.LENGTH_SHORT).show()
+
+                executarNormalizacaoInteligente()
+
+                // Desativar loader
+                binding.viewLoadingOverlay.visibility = View.GONE
+                binding.progressBarProcessamento.visibility = View.GONE
+
+                startActivity(Intent(this@VisualizarReceita, Compras::class.java))
+                Toast.makeText(this@VisualizarReceita, "Ingredientes adicionados e otimizados!", Toast.LENGTH_SHORT).show()
+
             } catch (e: Exception) {
-                e.printStackTrace()
-                Toast.makeText(this@VisualizarReceita, "Erro ao gerar lista", Toast.LENGTH_SHORT).show()
+                binding.viewLoadingOverlay.visibility = View.GONE
+                binding.progressBarProcessamento.visibility = View.GONE
+                Log.e(tag, "Erro ao gerar lista: ${e.message}")
+                Toast.makeText(this@VisualizarReceita, "Erro: Tabela não encontrada ou falha na rede", Toast.LENGTH_LONG).show()
             }
+        }
+    }
+
+    private suspend fun executarNormalizacaoInteligente() {
+        val analyzer = GeminiReceitaAnalyzer()
+
+        val listaAtual = SupabaseManager.client.from("lista_compras_itens")
+            .select(columns = Columns.list("*, ingredientes(*)"))
+            .decodeList<ListaComprasItem>()
+
+        val resultado = analyzer.normalizarQuantidades(listaAtual)
+
+        resultado.onSuccess { itensIA ->
+            listaAtual.forEach { itemBD ->
+                val nomeProcurado = itemBD.ingredientes?.nome
+
+                val correspondencia = itensIA.find {
+                    it.nome_original.equals(nomeProcurado, ignoreCase = true)
+                }
+
+                if (correspondencia != null) {
+                    SupabaseManager.client.from("lista_compras_itens").update(
+                        {
+                            set("quantidade", correspondencia.quantidade)
+                            set("medida", correspondencia.medida)
+                        }
+                    ) {
+                        filter { eq("id", itemBD.id!!) }
+                    }
+                }
+            }
+        }.onFailure {
+            Log.e("VisualizarReceita", "IA falhou, mantendo valores originais.")
         }
     }
 }
