@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.projeto_cmen_gestor_receitas_lista_compras.databinding.ItemCompraBinding
 import com.example.projeto_cmen_gestor_receitas_lista_compras.model.ListaComprasItem
 
-
 class ComprasAdapter(
     private var lista: List<ListaComprasItem>,
     private val onDeleteClick: (ListaComprasItem) -> Unit

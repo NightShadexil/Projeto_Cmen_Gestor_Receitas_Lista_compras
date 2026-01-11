@@ -41,6 +41,10 @@
     <string name="hint_pre_vizualizacao_da_receita">pré-vizualização da receita</string>
     <string name="btn_selecionar_foto">Selecionar Foto</string>
     <string name="btn_alterar_foto_da_receita">Alterar Foto da Receita</string>
+    <string name="lbl_lista_de_compras">Lista de Compras</string>
+    <string name="btn_esvaziar_lista">Esvaziar Lista</string>
+    <string name="lbl_lista_vazia">A lista está vazia.</string>
+    <string name="desc_adicionar_item">Adicionar Item</string>
 
     <string-array name="dificuldades">
         <item>baixa</item>

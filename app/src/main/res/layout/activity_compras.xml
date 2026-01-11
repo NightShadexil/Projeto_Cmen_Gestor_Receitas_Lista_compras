@@ -6,35 +6,39 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
+    android:fitsSystemWindows="true"
+    android:background="?attr/colorSurface"
     tools:context=".Compras">
 
     <TextView
         android:id="@+id/tvTituloCompras"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Lista de Compras"
+        android:layout_marginTop="8dp"
+        android:text="@string/lbl_lista_de_compras"
         android:textSize="24sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/btnLimparLista"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/btnLimparLista" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/btnLimparLista"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:src="@android:drawable/ic_menu_delete"
         android:background="?attr/selectableItemBackgroundBorderless"
-        app:tint="#D32F2F"
-        android:contentDescription="Esvaziar Lista"
+        android:contentDescription="@string/btn_esvaziar_lista"
+        android:src="@android:drawable/ic_menu_delete"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="#D32F2F" />
 
     <TextView
         android:id="@+id/tvVazio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="A lista está vazia."
+        android:text="@string/lbl_lista_vazia"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -66,9 +70,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
+        android:contentDescription="@string/desc_adicionar_item"
         android:src="@android:drawable/ic_input_add"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:contentDescription="Adicionar Item" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
