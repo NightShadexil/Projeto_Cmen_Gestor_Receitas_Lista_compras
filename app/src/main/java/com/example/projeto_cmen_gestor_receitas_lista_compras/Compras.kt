@@ -1,5 +1,6 @@
 package com.example.projeto_cmen_gestor_receitas_lista_compras
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
@@ -41,6 +42,15 @@ class Compras : AppCompatActivity() {
 
         binding.btnLimparLista.setOnClickListener {
             confirmarLimparTudo()
+        }
+
+        binding.btnSugerirReceita.setOnClickListener {
+            if (adapter.itemCount > 0) {
+                val intent = Intent(this, SugestoesReceita::class.java)
+                startActivity(intent)
+            } else {
+                Toast.makeText(this, "Adicione itens à lista para obter sugestões!", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

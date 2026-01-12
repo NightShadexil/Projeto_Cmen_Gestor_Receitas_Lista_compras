@@ -12,7 +12,9 @@ data class Receita(
     val dificuldade: String,
     val categoria: String,
     val preparacao: String,
-    @SerialName("imagem_url") val imagemCaminho: String = "imagem_padrao.png"
+    @SerialName("imagem_url") val imagemCaminho: String = "imagem_padrao.png",
+    @SerialName("receita_ingredientes")
+    val receita_ingredientes: List<ReceitaIngrediente>? = null
 ) {
     val urlCompleta: String
         get() = "https://irdivilrzypwtetakgdu.supabase.co/storage/v1/object/public/imagens_receita/$imagemCaminho"
@@ -37,9 +39,9 @@ data class ReceitaIngrediente(
 @Serializable
 data class ListaComprasItem(
     val id: String? = null,
-    @SerialName("lista_id") val listaId: String? = null, // Pode ser null se for lista única
+    @SerialName("lista_id") val listaId: String? = null,
     @SerialName("ingrediente_id") val ingredienteId: String,
     val quantidade: Double,
     val medida: String,
-    val ingredientes: Ingrediente? = null // Permite mostrar o nome (ex: "Arroz") na lista
+    val ingredientes: Ingrediente? = null
 )

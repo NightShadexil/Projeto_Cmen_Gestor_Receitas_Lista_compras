@@ -10,6 +10,7 @@ import android.text.Spanned
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.projeto_cmen_gestor_receitas_lista_compras.VisualizarReceita
@@ -20,6 +21,7 @@ import com.example.projeto_cmen_gestor_receitas_lista_compras.model.Receita
 @Suppress("DEPRECATION")
 class ReceitaAdapter(
     private var lista: List<Receita>,
+    private val podeRemover: Boolean = true,
     private val onRemoverClick: (Receita, Int) -> Unit
 ) : RecyclerView.Adapter<ReceitaAdapter.ReceitaViewHolder>() {
 
@@ -35,11 +37,12 @@ class ReceitaAdapter(
     override fun onBindViewHolder(holder: ReceitaViewHolder, position: Int) {
         val receita = lista[position]
         with(holder.binding) {
-            // 1. Dados Básicos e Porções
             tvNomeReceita.text = receita.nome
             tvCategoria.text = receita.categoria.uppercase()
             tvTempo.text = "🕒 ${receita.tempo} min"
             tvPorcoes.text = "🍽️ ${receita.porcoes} porções"
+
+            btnRemover.visibility = if (podeRemover) View.VISIBLE else View.GONE
 
             val label = "Dificuldade: "
             val valor = receita.dificuldade.uppercase()
@@ -61,11 +64,10 @@ class ReceitaAdapter(
                 "sobremesas" -> "#F06292".toColorInt()
                 else -> "#FFB74D".toColorInt()
             }
-            val shape = GradientDrawable().apply {
+            tvCategoria.background = GradientDrawable().apply {
                 cornerRadius = 24f
                 setColor(corCat)
             }
-            tvCategoria.background = shape
 
             btnRemover.setOnClickListener { onRemoverClick(receita, holder.adapterPosition) }
         }

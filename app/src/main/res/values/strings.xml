@@ -46,6 +46,20 @@
     <string name="lbl_lista_vazia">A lista está vazia.</string>
     <string name="desc_adicionar_item">Adicionar Item</string>
     <string name="desc_exportar_pdf">Exportar PDF</string>
+    <string name="btn_sugerir_receita">Sugerir Receita</string>
+    <string name="tv_sugestoes_de_receita">Sugestões de Receita</string>
+    <string name="tv_analisar_ingredientes">A analisar os teus ingredientes…</string>
+    <string name="btn_gerar_outra_vez">Gerar outra solução</string>
+    <string name="btn_guardar_receita">Guardar Receita</string>
+    <string name="msg_analisando_bd">A verificar a tua base de dados…</string>
+    <string name="msg_lista_vazia_aviso">A tua lista de compras está vazia.</string>
+    <string name="msg_matches_encontrados">Receitas encontradas na tua Base de Dados!</string>
+    <string name="msg_gerando_ia">Sem matches na BD. O Chef IA está a cozinhar…</string>
+    <string name="msg_ia_erro">A IA não conseguiu gerar uma receita.Tenta mais tarde.</string>
+    <string name="msg_guardar_sucesso">Receita guardada!</string>
+    <string name="msg_guardar_erro">Erro ao guardar receita</string>
+
+    <string name="template_sugestao_ia">NOME: %1$s\n\nCATEGORIA: %2$s\nTEMPO: %3$d min\n\nINGREDIENTES:\n%4$s\n\nPREPARAÇÃO:\n%5$s</string>
 
     <string-array name="dificuldades">
         <item>baixa</item>

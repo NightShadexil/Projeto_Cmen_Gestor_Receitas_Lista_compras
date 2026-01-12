@@ -165,14 +165,12 @@ class VisualizarReceita : AppCompatActivity() {
     private fun gerarListaCompras() {
         lifecycleScope.launch {
             try {
-                // Ativar loader e bloquear ecrã
                 binding.viewLoadingOverlay.visibility = View.VISIBLE
                 binding.progressBarProcessamento.visibility = View.VISIBLE
 
                 val itensReceita = SupabaseManager.client.from("receita_ingredientes")
-                    .select {
-                        filter { eq("receita_id", receitaId) }
-                    }.decodeList<ReceitaIngrediente>()
+                    .select { filter { eq("receita_id", receitaId) } }
+                    .decodeList<ReceitaIngrediente>()
 
                 for (item in itensReceita) {
                     val itemExistente = SupabaseManager.client.from("lista_compras_itens")
@@ -181,11 +179,11 @@ class VisualizarReceita : AppCompatActivity() {
                         }.decodeSingleOrNull<ListaComprasItem>()
 
                     if (itemExistente != null) {
-                        val novaQtd = itemExistente.quantidade + item.quantidade
-                        SupabaseManager.client.from("lista_compras_itens").update(
-                            { set("quantidade", novaQtd) }
-                        ) {
-                            filter { eq("id", itemExistente.id!!) }
+                        if (itemExistente.quantidade < item.quantidade) {
+                            val novaQtd = item.quantidade // Define a quantidade para o mínimo necessário da receita
+                            SupabaseManager.client.from("lista_compras_itens").update(
+                                { set("quantidade", novaQtd) }
+                            ) { filter { eq("id", itemExistente.id!!) } }
                         }
                     } else {
                         val novoItem = ListaComprasItem(
@@ -200,7 +198,6 @@ class VisualizarReceita : AppCompatActivity() {
 
                 executarNormalizacaoInteligente()
 
-                // Desativar loader
                 binding.viewLoadingOverlay.visibility = View.GONE
                 binding.progressBarProcessamento.visibility = View.GONE
 
